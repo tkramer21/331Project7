@@ -665,10 +665,8 @@ class AVLTreeTests(unittest.TestCase):
         avl = AVLTree()
         for i in [5, 2, 6, 1, 3] * 2 + [4]:
             node = avl.insert(avl.origin, i)
-            print(avl)
             self.assertIsInstance(node, Node)
 
-        print(avl)
         self.assertEqual(3, avl.origin.value)
         self.assertEqual(2, avl.origin.height)
         self.assertEqual(2, avl.origin.left.value)

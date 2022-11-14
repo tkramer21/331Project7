@@ -252,19 +252,21 @@ class AVLTree:
     def rebalance(self, root: Node) -> Optional[Node]:
         """"""
         bf = self.balance_factor(root)
+
         if root is not None:
+
             #right rotation case
-            if bf == 2:
+            if bf >= 2:
                 #left-right rotation case
-                if self.balance_factor(root.left) == -1:
-                    self.left_rotate(root.left)
+                if self.balance_factor(root.left) <= -1:
+                    root.left = self.left_rotate(root.left)
                 return self.right_rotate(root)
 
             # left rotation case
-            elif bf == -2:
+            elif bf <= -2:
                 #right-left rotation case
-                if self.balance_factor(root.right) == 1:
-                    self.right_rotate(root.right)
+                if self.balance_factor(root.right) >= 1:
+                    root.right = self.right_rotate(root.right)
                 return self.left_rotate(root)
 
         return root
@@ -290,13 +292,9 @@ class AVLTree:
         root.height = 1 + max(self.height(root.left), self.height(root.right))
 
         # check balance factor of root
-        if self.balance_factor(root) >= 2:
-            if self.balance_factor(root.left) == -1:
-                self.left_rotate(root.right)
-
-        if self.balance_factor(root) <= -2:
-            if self.balance_factor(root.right) == 1:
-                self.right_rotate(root.left)
+        if self.balance_factor(root) >= 2 or self.balance_factor(root) <= -2:
+            #rebalance avl
+            return self.rebalance(root)
 
         return root
 
