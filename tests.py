@@ -47,6 +47,7 @@ class AVLTreeTests(unittest.TestCase):
 
         node = avl.right_rotate(avl.origin)
 
+
         self.assertIsInstance(node, Node)
         # root value and parent
         self.assertEqual(2, avl.origin.value)
