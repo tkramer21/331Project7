@@ -290,9 +290,13 @@ class AVLTree:
         root.height = 1 + max(self.height(root.left), self.height(root.right))
 
         # check balance factor of root
-        if self.balance_factor(root) >= 2 or self.balance_factor(root) <= -2:
-            #rebalance avl
-            return self.rebalance(root)
+        if self.balance_factor(root) >= 2:
+            if self.balance_factor(root.left) == -1:
+                self.left_rotate(root.right)
+
+        if self.balance_factor(root) <= -2:
+            if self.balance_factor(root.right) == 1:
+                self.right_rotate(root.left)
 
         return root
 
