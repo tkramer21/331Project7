@@ -244,7 +244,10 @@ class AVLTree:
         """
 
         """
-        pass
+        if root is not None:
+            return self.height(root.left) - self.height(root.right)
+        else:
+            return 0
 
     def rebalance(self, root: Node) -> Optional[Node]:
         """
