@@ -250,10 +250,25 @@ class AVLTree:
             return 0
 
     def rebalance(self, root: Node) -> Optional[Node]:
-        """
+        """"""
+        bf = self.balance_factor(root)
+        print(bf)
+        if root is not None:
+            #left rotation case
+            if bf == 2:
+                # left-left rotation case
+                if self.balance_factor(root.left) == -1:
+                    self.left_rotate(root.left)
+                return self.left_rotate(root)
 
-        """
-        pass
+            # right rotation case
+            elif bf == -2:
+                #right-right rotation case
+                if self.balance_factor(root.right) == 1:
+                    self.right_rotate(root.right)
+                return self.right_rotate(root)
+
+        return root
 
     def insert(self, root: Node, val: T) -> Optional[Node]:
         """
