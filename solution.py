@@ -254,19 +254,19 @@ class AVLTree:
         bf = self.balance_factor(root)
         print(bf)
         if root is not None:
-            #left rotation case
+            #right rotation case
             if bf == 2:
-                # left-left rotation case
+                #left-right rotation case
                 if self.balance_factor(root.left) == -1:
                     self.left_rotate(root.left)
-                return self.left_rotate(root)
+                return self.right_rotate(root)
 
-            # right rotation case
+            # left rotation case
             elif bf == -2:
-                #right-right rotation case
+                #right-left rotation case
                 if self.balance_factor(root.right) == 1:
                     self.right_rotate(root.right)
-                return self.right_rotate(root)
+                return self.left_rotate(root)
 
         return root
 
