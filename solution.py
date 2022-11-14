@@ -273,7 +273,28 @@ class AVLTree:
         """
         Please fill docstring
         """
-        pass
+        if not root:
+            if self.origin is None:
+                self.origin = Node(val)
+            return Node(val)
+
+        # value greater than root --> insert in right subtree
+        elif val > root.value:
+            root.right = self.insert(root.right, val)
+
+        # value less than root --> insert in left subtree
+        elif val < root.value:
+            root.left = self.insert(root.left, val)
+
+        # update height
+        root.height = 1 + max(self.height(root.left), self.height(root.right))
+
+        # check balance factor of root
+        if self.balance_factor(root) >= 2 or self.balance_factor(root) <= -2:
+            #rebalance avl
+            return self.rebalance(root)
+
+        return root
 
     def min(self, root: Node) -> Optional[Node]:
         """
