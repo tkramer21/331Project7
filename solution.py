@@ -252,7 +252,6 @@ class AVLTree:
     def rebalance(self, root: Node) -> Optional[Node]:
         """"""
         bf = self.balance_factor(root)
-        print(bf)
         if root is not None:
             #right rotation case
             if bf == 2:
