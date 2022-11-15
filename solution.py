@@ -322,7 +322,18 @@ class AVLTree:
         """
         Please fill docstring
         """
-        pass
+        if root is not None:
+            if root.value == val:
+                return root
+            elif root.value > val:
+                if root.left is None:
+                    return root
+                return self.search(root.left, val)
+            elif root.value < val:
+                if root.right is None:
+                    return root
+                return self.search(root.right, val)
+
 
     def inorder(self, root: Node) -> Generator[Node, None, None]:
         """
