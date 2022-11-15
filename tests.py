@@ -607,7 +607,7 @@ class AVLTreeTests(unittest.TestCase):
             node = avl.insert(avl.origin, i)
             self.assertIsInstance(node, Node)
 
-#        self.assertEqual(5, avl.size)
+        self.assertEqual(5, avl.size)
         self.assertEqual(1, avl.origin.value)
         self.assertEqual(2, avl.origin.height)
         self.assertEqual(0, avl.origin.left.value)
@@ -633,7 +633,7 @@ class AVLTreeTests(unittest.TestCase):
             node = avl.insert(avl.origin, i)
             self.assertIsInstance(node, Node)
 
- #       self.assertEqual(5, avl.size)
+        self.assertEqual(5, avl.size)
         self.assertEqual(3, avl.origin.value)
         self.assertEqual(2, avl.origin.height)
         self.assertEqual(1, avl.origin.left.value)

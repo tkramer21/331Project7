@@ -278,6 +278,7 @@ class AVLTree:
         if not root:
             if self.origin is None:
                 self.origin = Node(val)
+            self.size += 1
             return Node(val)
 
         # value greater than root --> insert in right subtree
@@ -295,6 +296,7 @@ class AVLTree:
         if self.balance_factor(root) >= 2 or self.balance_factor(root) <= -2:
             #rebalance avl
             return self.rebalance(root)
+
 
         return root
 
@@ -388,7 +390,27 @@ class AVLTree:
         """
         Please fill docstring
         """
-        order = queue.SimpleQueue
+        order = queue.SimpleQueue()
+
+        def _add_to_queue(root: Node):
+            if root is not None:
+                yield root
+                if root.left is not None:
+                    order.put(root.left)
+                if root.right is not None:
+                    order.put(root.right)
+
+                if root.left is not None:
+                    _add_to_queue(root.left)
+                if root.right is not None:
+                    _add_to_queue(root.right)
+
+        _add_to_queue(root)
+        while not order.empty():
+            yield order.pop()
+
+
+
 
 
 
