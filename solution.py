@@ -339,7 +339,15 @@ class AVLTree:
         """
         Please fill docstring
         """
-        pass
+
+        if root is None:
+            return
+        if root.left is not None:
+            self.inorder(root.left)
+        yield root
+        if root.right is not None:
+            self.inorder(root.right)
+
 
     def __iter__(self) -> Generator[Node, None, None]:
         """
