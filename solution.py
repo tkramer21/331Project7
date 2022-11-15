@@ -343,17 +343,18 @@ class AVLTree:
         if root is None:
             return
         if root.left is not None:
-            self.inorder(root.left)
+            yield from self.inorder(root.left)
         yield root
+
         if root.right is not None:
-            self.inorder(root.right)
+            yield from self.inorder(root.right)
 
 
     def __iter__(self) -> Generator[Node, None, None]:
         """
         Please fill docstring
         """
-        pass
+        return self.inorder(self.origin)
 
     def preorder(self, root: Node) -> Generator[Node, None, None]:
         """
