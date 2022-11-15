@@ -394,21 +394,21 @@ class AVLTree:
 
         def _add_to_queue(root: Node):
             if root is not None:
-                yield root
+                order.put(root)
                 if root.left is not None:
                     order.put(root.left)
                 if root.right is not None:
                     order.put(root.right)
 
-                if root.left is not None:
-                    _add_to_queue(root.left)
-                if root.right is not None:
-                    _add_to_queue(root.right)
-
         _add_to_queue(root)
         while not order.empty():
-            yield order.pop()
+            if order.qsize() == 1:
+                yield order.get()
+                _add_to_queue(root.left)
+                _add_to_queue(root.right)
 
+            else:
+                yield order.get()
 
 
 
