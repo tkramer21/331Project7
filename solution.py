@@ -390,29 +390,25 @@ class AVLTree:
         """
         Please fill docstring
         """
+        if root is None:
+            return None
+
         order = queue.SimpleQueue()
 
-        def _add_to_queue(root: Node):
-            if root is not None:
-                order.put(root)
-                if root.left is not None:
-                    order.put(root.left)
-                if root.right is not None:
-                    order.put(root.right)
+        order.put(root)
+        order.put(None)
 
-        _add_to_queue(root)
-        while not order.empty():
-            if order.qsize() == 1:
-                yield order.get()
-                _add_to_queue(root.left)
-                _add_to_queue(root.right)
+        while order.qsize() > 1:
+            ptr = order.get()
 
+            if ptr == None:
+                order.put(None)
             else:
-                yield order.get()
-
-
-
-
+                if ptr.left:
+                    order.put(ptr.left)
+                if ptr.right:
+                    order.put(ptr.right)
+                yield ptr
 
 
     ####################################################################################################
