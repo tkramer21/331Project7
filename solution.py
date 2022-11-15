@@ -349,7 +349,7 @@ class AVLTree:
         if root.right is not None:
             yield from self.inorder(root.right)
 
-#i made a change
+
     def __iter__(self) -> Generator[Node, None, None]:
         """
         Please fill docstring
@@ -360,19 +360,37 @@ class AVLTree:
         """
         Please fill docstring
         """
-        pass
+        if root is None:
+            return
+        yield root
+        if root.left is not None:
+            yield from self.preorder(root.left)
+
+        if root.right is not None:
+            yield from self.preorder(root.right)
 
     def postorder(self, root: Node) -> Generator[Node, None, None]:
         """
         Please fill docstring
         """
-        pass
+        if root is None:
+            return
+
+        if root.left is not None:
+            yield from self.postorder(root.left)
+
+        if root.right is not None:
+            yield from self.postorder(root.right)
+
+        yield root
 
     def levelorder(self, root: Node) -> Generator[Node, None, None]:
         """
         Please fill docstring
         """
-        pass
+        order = queue.SimpleQueue
+
+
 
 
     ####################################################################################################
