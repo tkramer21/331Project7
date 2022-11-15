@@ -302,13 +302,21 @@ class AVLTree:
         """
         Please fill docstring
         """
-        pass
+        if root is not None:
+            if root.left is not None:
+                return self.min(root.left)
+            else:
+                return root
 
     def max(self, root: Node) -> Optional[Node]:
         """
         Please fill docstring
         """
-        pass
+        if root is not None:
+            if root.right is not None:
+                return self.max(root.right)
+            else:
+                return root
 
     def search(self, root: Node, val: T) -> Optional[Node]:
         """
