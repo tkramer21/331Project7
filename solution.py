@@ -249,7 +249,9 @@ class AVLTree:
             return 0
 
     def rebalance(self, root: Node) -> Optional[Node]:
-        """"""
+        """
+
+        """
         bf = self.balance_factor(root)
 
         if root is not None:
@@ -418,9 +420,8 @@ def is_avl_tree(tree: AVLTree):
     """
     PLEASE FILL DOC-STRING
     """
-    curr = tree.orgin
 
-    def is_avl_help(curr: Node):
+    def is_avl_help(curr: Node, par_val):
         """
         Recursive helper function. Used since I want to be able to pass a node to the recursive function \
         rather than passing the tree.
@@ -428,17 +429,49 @@ def is_avl_tree(tree: AVLTree):
         :param curr: a Node object holding the current node being evaluated
         :returns: a boolean determining whether tree satisfies avl properties.
         """
-        if curr.left.val > curr.val:
+
+        # checks left child against curr value
+        if curr.left is not None and curr.left.value > curr.value:
             return False
-        if curr.right.val < curr.val:
+        #cheecks right child against curr value
+        if curr.right is not None and curr.right.value < curr.value:
             return False
 
+        # checks if left child exists
         if curr.left is not None:
-            return is_avl_tree(curr.left)
-        if curr.right is not None:
-            return is_avl_tree(curr.right)
+            if par_val is not None:
+                #checks left childs children against parent value
+                if curr.left.left is not None and curr.left.left.value > par_val:
+                    return False
+                if curr.left.right is not None and curr.left.right.value > par_val:
+                    return False
 
-    return is_avl_help(curr)
+            # checking subtree for balance
+            if curr.right is None:
+
+                if par_val is not None:
+                    # checks right childs children against parent value
+                    if curr.right.left is not None and curr.right.left.value > par_val:
+                        return False
+                    if curr.right.right is not None and curr.right.right.value > par_val:
+                        return False
+
+                if curr.left.left is not None or curr.left.right is not None:
+                    return False
+            return is_avl_help(curr.left, curr.value)
+
+        #checks if right child exists
+        if curr.right is not None:
+            #checking for subtree balance
+            if curr.left is None:
+                if curr.right.right is not None or curr.right.left is not None:
+                    return False
+            return is_avl_help(curr.right, curr.value)
+
+        return True
+
+    if tree.origin is not None:
+        return is_avl_help(tree.origin, None)
 
 
 
