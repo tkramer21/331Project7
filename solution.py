@@ -228,7 +228,6 @@ class AVLTree:
                 root.parent.right = new_root
         root.parent = new_root
 
-
         # handle tree origin case
         if root is self.origin:
             self.origin = new_root
@@ -256,16 +255,16 @@ class AVLTree:
 
         if root is not None:
 
-            #right rotation case
+            # right rotation case
             if bf >= 2:
-                #left-right rotation case
+                # left-right rotation case
                 if self.balance_factor(root.left) <= -1:
                     root.left = self.left_rotate(root.left)
                 return self.right_rotate(root)
 
             # left rotation case
             elif bf <= -2:
-                #right-left rotation case
+                # right-left rotation case
                 if self.balance_factor(root.right) >= 1:
                     root.right = self.right_rotate(root.right)
                 return self.left_rotate(root)
@@ -295,9 +294,8 @@ class AVLTree:
 
         # check balance factor of root
         if self.balance_factor(root) >= 2 or self.balance_factor(root) <= -2:
-            #rebalance avl
+            # rebalance avl
             return self.rebalance(root)
-
 
         return root
 
@@ -337,7 +335,6 @@ class AVLTree:
                     return root
                 return self.search(root.right, val)
 
-
     def inorder(self, root: Node) -> Generator[Node, None, None]:
         """
         Please fill docstring
@@ -351,7 +348,6 @@ class AVLTree:
 
         if root.right is not None:
             yield from self.inorder(root.right)
-
 
     def __iter__(self) -> Generator[Node, None, None]:
         """
@@ -411,7 +407,6 @@ class AVLTree:
                     order.put(ptr.right)
                 yield ptr
 
-
     ####################################################################################################
 
 
@@ -420,60 +415,40 @@ def is_avl_tree(tree: AVLTree):
     """
     PLEASE FILL DOC-STRING
     """
-
-    def is_avl_help(curr: Node, par_val):
+    def is_avl_help(curr: Node, min, max):
         """
         Recursive helper function. Used since I want to be able to pass a node to the recursive function \
         rather than passing the tree.
-
         :param curr: a Node object holding the current node being evaluated
         :returns: a boolean determining whether tree satisfies avl properties.
         """
 
-        # checks left child against curr value
-        if curr.left is not None and curr.left.value > curr.value:
-            return False
-        #cheecks right child against curr value
-        if curr.right is not None and curr.right.value < curr.value:
-            return False
-
-        # checks if left child exists
-        if curr.left is not None:
-            if par_val is not None:
-                #checks left childs children against parent value
-                if curr.left.left is not None and curr.left.left.value > par_val:
-                    return False
-                if curr.left.right is not None and curr.left.right.value > par_val:
-                    return False
-
-            # checking subtree for balance
-            if curr.right is None:
-
-                if par_val is not None:
-                    # checks right childs children against parent value
-                    if curr.right.left is not None and curr.right.left.value > par_val:
+        if min < curr.value < max:
+            if curr.left is not None:
+                if curr.right is None:
+                    if curr.left.left is not None or curr.left.right is not None:
                         return False
-                    if curr.right.right is not None and curr.right.right.value > par_val:
+                if not is_avl_help(curr.left, min, curr.value):
+                    return False
+
+            if curr.right is not None:
+                if curr.left is None:
+                    if curr.right.right is not None or curr.right.left is not None:
                         return False
-
-                if curr.left.left is not None or curr.left.right is not None:
+                if not is_avl_help(curr.right, curr.value, max):
                     return False
-            return is_avl_help(curr.left, curr.value)
 
-        #checks if right child exists
-        if curr.right is not None:
-            #checking for subtree balance
-            if curr.left is None:
-                if curr.right.right is not None or curr.right.left is not None:
-                    return False
-            return is_avl_help(curr.right, curr.value)
+            return True
 
-        return True
+        else:
+            return False
+
+
 
     if tree.origin is not None:
-        return is_avl_help(tree.origin, None)
-
-
+        return is_avl_help(tree.origin, float('-inf'), float('inf'))
+    else:
+        return True
 
 
 _SVG_XML_TEMPLATE = """
@@ -548,7 +523,7 @@ def pretty_print_binary_tree(root: Node, curr_index: int, include_index: bool = 
         node_repr = "{}{}{}".format(curr_index, delimiter, root.value)
     else:
         node_repr = f'{root.value},h={root.height},' \
-                        f'⬆{str(root.parent.value) if root.parent else "None"}'
+                    f'⬆{str(root.parent.value) if root.parent else "None"}'
 
     new_root_width = gap_size = len(node_repr)
 

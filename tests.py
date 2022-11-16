@@ -1212,10 +1212,10 @@ class AVLTreeTests(unittest.TestCase):
         a.origin = Node(10)
         a.origin.height = 2
 
-        a.origin.left = Node(5)
+        a.origin.left = Node(4)
         a.origin.left.height = 1
         a.origin.left.right = Node(12)
-        a.origin.left.left = Node(1)
+        a.origin.left.left = Node(3)
 
         a.origin.right = Node(15)
         a.origin.right.height = 1
