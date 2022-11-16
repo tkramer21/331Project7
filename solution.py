@@ -4,7 +4,6 @@ CSE 331 F22 (Onsay)
 Tim Kramer
 Self Balancing BST
 solution.py
-Hey I'm making a change to see if Github is working
 """
 import math
 import queue
@@ -419,7 +418,28 @@ def is_avl_tree(tree: AVLTree):
     """
     PLEASE FILL DOC-STRING
     """
-    pass
+    curr = tree.orgin
+
+    def is_avl_help(curr: Node):
+        """
+        Recursive helper function. Used since I want to be able to pass a node to the recursive function \
+        rather than passing the tree.
+
+        :param curr: a Node object holding the current node being evaluated
+        :returns: a boolean determining whether tree satisfies avl properties.
+        """
+        if curr.left.val > curr.val:
+            return False
+        if curr.right.val < curr.val:
+            return False
+
+        if curr.left is not None:
+            return is_avl_tree(curr.left)
+        if curr.right is not None:
+            return is_avl_tree(curr.right)
+
+    return is_avl_help(curr)
+
 
 
 
