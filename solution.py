@@ -240,7 +240,10 @@ class AVLTree:
 
     def balance_factor(self, root: Node) -> int:
         """
+        Checks the balance factor of the Node at root
 
+        :param root: the root of the subtree to be checked
+        :returns: an int representing the balance factor of root
         """
         if root is not None:
             return self.height(root.left) - self.height(root.right)
@@ -249,7 +252,10 @@ class AVLTree:
 
     def rebalance(self, root: Node) -> Optional[Node]:
         """
+        Rebalances the subtree at root
 
+        :param root: the root of the subtree to be rebalanced
+        :returns: the root of the new subtree after rebalancing
         """
         bf = self.balance_factor(root)
 
@@ -273,7 +279,12 @@ class AVLTree:
 
     def insert(self, root: Node, val: T) -> Optional[Node]:
         """
-        Please fill docstring
+        Inserts a new node into the tree. Will update the height of the tree and check the balance factor after /
+        insertion, If the AVL tree is unbalanced calls the function rebalance.
+
+        :param root: the root of the tree that will have a new node inserted to
+        :param val: the value of the new node to be inserted
+        :returns the new root of the subtree after insertion and rebalancing
         """
         if not root:
             if self.origin is None:
@@ -301,7 +312,10 @@ class AVLTree:
 
     def min(self, root: Node) -> Optional[Node]:
         """
-        Please fill docstring
+        Recursively finds the min value of the tree
+
+        :param root: the root of the tree to be searched
+        :returns: the node object with the min value
         """
         if root is not None:
             if root.left is not None:
@@ -311,7 +325,10 @@ class AVLTree:
 
     def max(self, root: Node) -> Optional[Node]:
         """
-        Please fill docstring
+        Recursively finds the max value of the tree
+
+        :param root: the root of the tree to be searched
+        :returns: the node object with the max value
         """
         if root is not None:
             if root.right is not None:
@@ -321,7 +338,11 @@ class AVLTree:
 
     def search(self, root: Node, val: T) -> Optional[Node]:
         """
-        Please fill docstring
+        Recursively searches a tree for a specific value
+
+        :param root: the root of the tree to be searched
+        :param val: the value to be searched for
+        :returns: the node object if found or the node that the value would be inserted at
         """
         if root is not None:
             if root.value == val:
@@ -337,7 +358,10 @@ class AVLTree:
 
     def inorder(self, root: Node) -> Generator[Node, None, None]:
         """
-        Please fill docstring
+        Recursively traverse a tree in inorder
+
+        :praram root: the root of the tree to be traversed
+        :returns: a generator with the node objects
         """
 
         if root is None:
@@ -351,13 +375,17 @@ class AVLTree:
 
     def __iter__(self) -> Generator[Node, None, None]:
         """
-        Please fill docstring
+        Allows a tree to be traversed inorder using the format "for i in tree"
+        :returns: a generator with the node objects
         """
         return self.inorder(self.origin)
 
     def preorder(self, root: Node) -> Generator[Node, None, None]:
         """
-        Please fill docstring
+        Recursively traverse a tree in preorder
+
+        :praram root: the root of the tree to be traversed
+        :returns: a generator with the node objects
         """
         if root is None:
             return
@@ -370,7 +398,10 @@ class AVLTree:
 
     def postorder(self, root: Node) -> Generator[Node, None, None]:
         """
-        Please fill docstring
+        Recursively traverse a tree in postorder
+
+        :praram root: the root of the tree to be traversed
+        :returns: a generator with the node objects
         """
         if root is None:
             return
@@ -385,7 +416,10 @@ class AVLTree:
 
     def levelorder(self, root: Node) -> Generator[Node, None, None]:
         """
-        Please fill docstring
+        Traverses a tree starting at the root and visiting the nodes in a level-order
+
+        :param root: the root of the tree to be traversed
+        :returns: a generator with the tree objects
         """
         if root is None:
             return None
@@ -413,7 +447,10 @@ class AVLTree:
 # ------- Application Problem ------- #
 def is_avl_tree(tree: AVLTree):
     """
-    PLEASE FILL DOC-STRING
+    Calls helper function to determine if tree is valid AVL.
+
+    :param tree: the AVL tree to be checked
+    :returns: a true boolean if valid otherwise false
     """
     def is_avl_help(curr: Node, min, max):
         """
